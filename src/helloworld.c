@@ -47,15 +47,40 @@
 
 #include <stdio.h>
 #include "platform.h"
-#include "xil_printf.h"
+
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_cache.h"
 
 
 int main()
 {
-    init_platform();
-
-    print("Hello World\n\r");
-
+	init_platform();
+	Xil_DCacheDisable();
+	uint32_t * gpio = 0x41200000;
+	uint32_t * gpio1 = 0x41210000;
+	uint64_t * n0 = 0x00000010;
+	uint64_t * n1 = 0x00000018;
+	uint64_t * n2 = 0x00000020;
+	uint64_t * n3 = 0x00000028;
+	int i = 0;
+	*n0 = (uint64_t) 1;
+	*n1 = (uint64_t) 2;
+	*n2 = (uint64_t) 3;
+	*n3 = (uint64_t) 4;
+    printf("Start\n\r");
+    *gpio = 1;
+    //    	while(i < 1) i ++;
+    //    	i = 0;
+    *gpio = 0;
+    while(1){
+    	*gpio1 = 1;
+    	    	while(i < 10) i ++;
+    	    	i = 0;
+    	*gpio1 = 0;
+    }
     cleanup_platform();
     return 0;
 }
+
