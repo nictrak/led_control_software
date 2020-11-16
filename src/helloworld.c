@@ -58,27 +58,28 @@ int main()
 {
 	init_platform();
 	Xil_DCacheDisable();
-	uint32_t * gpio = 0x41200000;
-	uint32_t * gpio1 = 0x41210000;
+	uint32_t * index = 0x43C00000;
+	uint32_t * init = 0x43C00004;
 	uint64_t * n0 = 0x00000010;
 	uint64_t * n1 = 0x00000018;
 	uint64_t * n2 = 0x00000020;
-	uint64_t * n3 = 0x00000028;
+	uint64_t * n00 = 0x00000100;
+	uint64_t * n01 = 0x00000108;
+	uint64_t * n02 = 0x00000110;
+	uint64_t * n03 = 0x00000118;
 	int i = 0;
+	*index = (uint32_t) 0;
 	*n0 = (uint64_t) 1;
 	*n1 = (uint64_t) 2;
-	*n2 = (uint64_t) 3;
-	*n3 = (uint64_t) 4;
+	*n2 = (uint64_t) 0x0003000400000100;
+	*n00 = (uint64_t) 8;
+	*n01 = (uint64_t) 6;
+	*n02 = (uint64_t) 7;
+	*n03 = (uint64_t) 0x0002000400000000;
     printf("Start\n\r");
-    *gpio = 1;
-    //    	while(i < 1) i ++;
-    //    	i = 0;
-    *gpio = 0;
     while(1){
-    	*gpio1 = 1;
-    	    	while(i < 10) i ++;
-    	    	i = 0;
-    	*gpio1 = 0;
+    	*init = (uint32_t) 1;
+    	*init = (uint32_t) 0;
     }
     cleanup_platform();
     return 0;
